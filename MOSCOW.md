@@ -2,7 +2,7 @@
 
 - [ ] Inlog systeem
 - [ ] Regestratie
-  - [ ] Kilometerstand
+  - [ ] Kilometerstand (vastzetten)
   - [ ] Collega
   - [ ] Begin / eind address
 - [ ] Beheerportaal
@@ -12,6 +12,9 @@
 
 - [ ] Melding
 - [ ] Automatische regestratie met GPS
+- [ ] Exporteren naar XLSX
+  - [ ] Totaale hoeveelheden
+  - [ ] Datum selectie
 
 # Could have
 
