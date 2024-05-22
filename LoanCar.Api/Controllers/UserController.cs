@@ -1,3 +1,4 @@
+using LoanCar.Api.DTOs;
 using LoanCar.Api.Models;
 using LoanCar.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -6,17 +7,14 @@ namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("users")]
-    public class UserController : ControllerBase
+    public class UserController(LoanCarContext db) : ControllerBase
     {
-        private static readonly List<User> Users =
-        [
-            new User { Name = "John Doe", Email = "johndoe@example.com", Password = "Welkom01"}
-        ];
+        private readonly LoanCarContext db = db;
 
         [HttpGet]
         public IActionResult Get()
         {
-            var UserDTOs = Users.Select(u => new UserDTO()
+            var UserDTOs = db.Users.Select(u => new UserDTO()
             {
                 Name = u.Name,
                 Email = u.Email
@@ -29,18 +27,32 @@ namespace LoanCar.Api.Controllers
         {
             try
             {
-                return Ok(Users[id - 1]);
+                return Ok(db.Users.FirstOrDefault((u) => u.Id == id));
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentNullException)
             {
                 return NotFound();
             }
         }
 
+#if DEBUG
+#warning Insecure endpoint!
+#else
+#error Insecure endpoint!
+#endif
         [HttpPost]
-        public IActionResult Post([FromBody] User user)
+        public IActionResult Post([FromBody] NewUserDTO userDTO)
         {
-            Users.Add(user);
+            User user = new()
+            {
+                Email = userDTO.Email,
+                Name = userDTO.Name,
+                Password = BCrypt.Net.BCrypt.HashPassword(userDTO.Password)
+            };
+
+            db.Users.Add(user);
+            db.SaveChanges();
+
             return Created();
         }
     }
