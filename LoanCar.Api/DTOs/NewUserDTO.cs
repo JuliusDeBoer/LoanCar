@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LoanCar.Api.Models
+﻿namespace LoanCar.Api.DTOs
 {
-    public class User
+    public class NewUserDTO
     {
-        [Key]
-        public Guid Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -13,4 +9,3 @@ namespace LoanCar.Api.Models
         public bool IsAdmin { get; set; }
     }
 }
-

@@ -398,4 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Datbase
-LoanCar.Api/LoanCar.db
+LoanCar.Api/LoanCar.db*
