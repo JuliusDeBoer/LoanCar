@@ -1,8 +1,7 @@
-﻿namespace LoanCar.Api.DTOs
+﻿namespace LoanCar.Shared.Requests
 {
-    public class PublicCarDTO
+    public class NewCarDTO
     {
-        public Guid Id { get; set; }
         public string Name { set; get; } = string.Empty;
         public float Milage { get; set; }
     }

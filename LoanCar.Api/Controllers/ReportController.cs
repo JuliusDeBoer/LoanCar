@@ -1,5 +1,5 @@
-﻿using LoanCar.Api.DTOs;
-using LoanCar.Api.Models;
+﻿using LoanCar.Api.Models;
+using LoanCar.Shared.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

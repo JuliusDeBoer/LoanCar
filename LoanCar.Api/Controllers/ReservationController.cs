@@ -1,5 +1,6 @@
-﻿using LoanCar.Api.DTOs;
-using LoanCar.Api.Models;
+﻿using LoanCar.Api.Models;
+using LoanCar.Shared.Requests;
+using LoanCar.Shared.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,9 +46,21 @@ namespace LoanCar.Api.Controllers
             {
                 Id = reservation.Id,
                 CarId = reservation.CarId,
-                Car = reservation.Car,
+                Car = new PublicCarDTO()
+                {
+                    Id = reservation.Car.Id,
+                    Milage = reservation.Car.Milage,
+                    Name = reservation.Car.Name
+                },
                 UserId = reservation.UserId,
-                User = reservation.User,
+                User = new PublicUserDTO()
+                {
+                    Id = reservation.User.Id,
+                    Email = reservation.User.Email,
+                    FirstName = reservation.User.FirstName,
+                    LastName = reservation.User.LastName,
+                    IsAdmin = reservation.User.IsAdmin
+                },
                 Origin = reservation.Origin,
                 Destination = reservation.Destination,
                 StartingTime = reservation.StartingTime,
