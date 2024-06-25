@@ -1,5 +1,7 @@
-﻿using LoanCar.Api.DTOs;
-using LoanCar.Api.Models;
+﻿using LoanCar.Api.Models;
+using LoanCar.Shared.Requests;
+using LoanCar.Shared.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,7 @@ namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("reservations")]
+    [Authorize]
     public class ReservationController(LoanCarContext db) : ControllerBase
     {
         private readonly LoanCarContext db = db;
@@ -27,7 +30,6 @@ namespace LoanCar.Api.Controllers
             return Ok(reservations);
         }
 
-        // FIXME: This exposes the password of the user. Make a DTO for this
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
@@ -45,9 +47,21 @@ namespace LoanCar.Api.Controllers
             {
                 Id = reservation.Id,
                 CarId = reservation.CarId,
-                Car = reservation.Car,
+                Car = new PublicCarDTO()
+                {
+                    Id = reservation.Car.Id,
+                    Milage = reservation.Car.Milage,
+                    Name = reservation.Car.Name
+                },
                 UserId = reservation.UserId,
-                User = reservation.User,
+                User = new PublicUserDTO()
+                {
+                    Id = reservation.User.Id,
+                    Email = reservation.User.Email,
+                    FirstName = reservation.User.FirstName,
+                    LastName = reservation.User.LastName,
+                    IsAdmin = reservation.User.IsAdmin
+                },
                 Origin = reservation.Origin,
                 Destination = reservation.Destination,
                 StartingTime = reservation.StartingTime,
@@ -55,6 +69,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "admin")]
         public IActionResult Post([FromBody] NewReservationDTO dto)
         {
             var reservation = new Reservation()
@@ -74,6 +89,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Put(Guid id, [FromBody] NewReservationDTO dto)
         {
             var reservation = db.Reservations.FirstOrDefault(r => r.Id == id);
@@ -95,6 +111,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Delete(Guid id)
         {
             var reservation = db.Reservations.Where(r => r.Id == id);

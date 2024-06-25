@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanCar.Api", "LoanCar.Api\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanCar.Shared", "LoanCar.Common\LoanCar.Shared.csproj", "{4F49829A-0328-4E11-97D1-4B0261A70FC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCar.Web", "LoanCar.Web\LoanCar.Web.csproj", "{D61DCFAD-A76C-47B8-8BDD-54933CECF186}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCar.Desktop", "LoanCar.Desktop\LoanCar.Desktop.csproj", "{D51288D9-0731-49F5-8D08-9E951BA95BD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanCar.Web", "LoanCar.Web\LoanCar.Web.csproj", "{D61DCFAD-A76C-47B8-8BDD-54933CECF186}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{D61DCFAD-A76C-47B8-8BDD-54933CECF186}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D61DCFAD-A76C-47B8-8BDD-54933CECF186}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D61DCFAD-A76C-47B8-8BDD-54933CECF186}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D51288D9-0731-49F5-8D08-9E951BA95BD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D51288D9-0731-49F5-8D08-9E951BA95BD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D51288D9-0731-49F5-8D08-9E951BA95BD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D51288D9-0731-49F5-8D08-9E951BA95BD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

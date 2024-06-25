@@ -1,4 +1,4 @@
-﻿namespace LoanCar.Api.DTOs
+﻿namespace LoanCar.Shared.Responses
 {
     public class PublicNotificationDTO
     {

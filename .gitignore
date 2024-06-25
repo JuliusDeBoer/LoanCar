@@ -399,3 +399,7 @@ FodyWeavers.xsd
 
 # Datbase
 LoanCar.Api/LoanCar.db*
+
+# CSS
+
+LoanCar.Web/wwwroot/css/*.min.css

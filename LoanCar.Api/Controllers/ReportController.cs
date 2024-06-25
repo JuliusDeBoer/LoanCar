@@ -1,5 +1,6 @@
-﻿using LoanCar.Api.DTOs;
-using LoanCar.Api.Models;
+﻿using LoanCar.Api.Models;
+using LoanCar.Shared.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,11 +8,13 @@ namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("reports")]
+    [Authorize]
     public class ReportController(LoanCarContext db) : ControllerBase
     {
         private readonly LoanCarContext db = db;
 
         [HttpGet]
+        [Authorize(Policy = "admin")]
         public IActionResult Get()
         {
             var reports = db.Reports.ToList();
@@ -20,6 +23,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult GetById(Guid id)
         {
             var report = db.Reports
@@ -52,6 +56,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Put(Guid id, [FromBody] NewReportDTO dto)
         {
             var report = db.Reports.FirstOrDefault(r => r.Id == id);
@@ -71,6 +76,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Delete(Guid id)
         {
             var report = db.Reports.Where(r => r.Id == id);
