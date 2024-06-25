@@ -1,5 +1,6 @@
 
 using LoanCar.Api.Models;
+using LoanCar.Api.Services;
 
 namespace LoanCar.Api
 {
@@ -13,6 +14,9 @@ namespace LoanCar.Api
             builder.Services.AddControllers();
 
             builder.Services.AddSqlite<LoanCarContext>(builder.Configuration.GetConnectionString("Default"));
+
+            builder.Services.AddScoped<CarService>();
+            builder.Services.AddScoped<UserService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

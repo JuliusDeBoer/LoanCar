@@ -507,9 +507,9 @@ video {
 .table {
   display: table;
 }
-.bg-violet-500 {
+.bg-yellow-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(139 92 246 / var(--tw-bg-opacity));
+  background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
 .px-3 {
   padding-left: 0.75rem;

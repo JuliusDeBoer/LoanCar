@@ -1,21 +1,21 @@
 ﻿using LoanCar.Api.Models;
+using LoanCar.Api.Services;
 using LoanCar.Shared.Requests;
 using LoanCar.Shared.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("cars")]
-    public class CarController(LoanCarContext db) : ControllerBase
+    public class CarController(CarService carService) : ControllerBase
     {
-        private readonly LoanCarContext db = db;
+        private readonly CarService carService = carService;
 
         [HttpGet]
         public IActionResult Get()
         {
-            var cars = db.Cars.Select(c => new PublicCarDTO()
+            var cars = carService.GetCars().Select(c => new PublicCarDTO()
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -28,7 +28,7 @@ namespace LoanCar.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
-            var car = db.Cars.FirstOrDefault(c => c.Id == id);
+            var car = carService.GetCar(id);
 
             if (car == null)
             {
@@ -52,9 +52,7 @@ namespace LoanCar.Api.Controllers
                 Milage = dto.Milage
             };
 
-            db.Cars.Add(car);
-
-            db.SaveChanges();
+            carService.AddCar(car);
 
             return Ok();
         }
@@ -62,17 +60,19 @@ namespace LoanCar.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, [FromBody] NewCarDTO dto)
         {
-            var car = db.Cars.FirstOrDefault(c => c.Id == id);
-
-            if (car == null)
+            try
+            {
+                carService.UpdateCar(id, new Car()
+                {
+                    Id = id,
+                    Milage = dto.Milage,
+                    Name = dto.Name
+                });
+            }
+            catch
             {
                 return NotFound();
             }
-
-            car.Name = dto.Name;
-            car.Milage = dto.Milage;
-
-            db.SaveChanges();
 
             return Ok();
         }
@@ -80,16 +80,14 @@ namespace LoanCar.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var car = db.Cars.Where(c => c.Id == id);
-
-            if (!car.Any())
+            try
+            {
+                carService.DeleteCar(id);
+            }
+            catch
             {
                 return NotFound();
             }
-
-            car.ExecuteDelete();
-
-            db.SaveChanges();
 
             return Ok();
         }

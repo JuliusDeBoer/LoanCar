@@ -1,8 +1,8 @@
 using LoanCar.Api.Models;
+using LoanCar.Api.Services;
 using LoanCar.Shared.Requests;
 using LoanCar.Shared.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 // Prevent this code from going into production with insecure endpoints.
 // Remove if you dare!
@@ -16,14 +16,14 @@ namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("users")]
-    public class UserController(LoanCarContext db) : ControllerBase
+    public class UserController(UserService userService) : ControllerBase
     {
-        private readonly LoanCarContext db = db;
+        private readonly UserService userService = userService;
 
         [HttpGet]
         public IActionResult Get()
         {
-            var users = db.Users.Select(u => new PublicUserDTO()
+            var users = userService.GetUsers().Select(u => new PublicUserDTO()
             {
                 Id = u.Id,
                 Email = u.Email,
@@ -39,7 +39,7 @@ namespace LoanCar.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
-            var user = db.Users.FirstOrDefault(u => u.Id == id);
+            var user = userService.GetUser(id);
 
             if (user == null)
             {
@@ -70,9 +70,7 @@ namespace LoanCar.Api.Controllers
                 Password = password
             };
 
-            db.Users.Add(user);
-
-            db.SaveChanges();
+            userService.AddUser(user);
 
             return Ok();
         }
@@ -80,19 +78,20 @@ namespace LoanCar.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, [FromBody] UpdateUserDTO dto)
         {
-            var user = db.Users.FirstOrDefault(u => u.Id == id);
-
-            if (user == null)
+            try
+            {
+                userService.UpdateUser(id, new User()
+                {
+                    Email = dto.Email,
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    IsAdmin = dto.IsAdmin
+                });
+            }
+            catch
             {
                 return NotFound();
             }
-
-            user.Email = dto.Email;
-            user.FirstName = dto.FirstName;
-            user.LastName = dto.LastName;
-            user.IsAdmin = dto.IsAdmin;
-
-            db.SaveChanges();
 
             return Ok();
         }
@@ -100,16 +99,15 @@ namespace LoanCar.Api.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var user = db.Users.Where(u => u.Id == id);
-
-            if (!user.Any())
+            try
+            {
+                userService.DeleteUser(id);
+            }
+            catch
             {
                 return NotFound();
             }
 
-            user.ExecuteDelete();
-
-            db.SaveChanges();
             return Ok();
         }
     }
