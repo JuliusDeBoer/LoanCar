@@ -1,16 +1,10 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<div class="w-full h-screen">
+    <header class="w-full h-16 bg-primary flex justify-between items-center px-4 py-2 shadow">
+        <img src="/media/logo_covadis.png" class="h-full" />
+    </header>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
+    <main class="w-full h-[calc(100vh-4rem)]">
+        @Body
     </main>
 </div>
