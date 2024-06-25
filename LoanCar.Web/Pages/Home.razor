@@ -1,3 +1,10 @@
 ﻿@page "/"
 
-<h1>Holy shit its a webpage</h1>
+<AuthorizeView>
+	<Authorized>
+		@{ NavigationManager.NavigateTo("/dashboard"); }
+	</Authorized>
+	<NotAuthorized>
+		@{ NavigationManager.NavigateTo("/login"); }
+	</NotAuthorized>
+</AuthorizeView>

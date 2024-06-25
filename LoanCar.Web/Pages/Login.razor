@@ -1,0 +1,29 @@
+﻿@page "/login"
+
+<PageTitle>Login</PageTitle>
+
+<AuthorizeView>
+	<Authorized>
+		@{ NavigationManager.NavigateTo("/dashboard"); }
+	</Authorized>
+</AuthorizeView>
+
+<div class="w-full h-full flex justify-center items-center">
+	<div>
+        <EditForm Model="this" OnSubmit="HandleLogin" class="flex flex-col">
+            <h1 class="text-2xl font-bold">Login</h1>
+            <br class="m-2" />
+            <InputText @bind-Value="_email" type="email" placeholder="Email" required />
+            <br class="m-2" />
+            <InputText @bind-Value="_password" type="password" placeholder="Password" required />
+            <br class="m-2" />
+
+            @if (_errorMessage != null)
+            {
+                <p class="error">@_errorMessage</p>
+            }
+
+            <button type="submit">Login</button>
+        </EditForm>
+	</div>
+</div>

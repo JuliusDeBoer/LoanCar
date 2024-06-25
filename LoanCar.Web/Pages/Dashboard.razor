@@ -1,0 +1,13 @@
+﻿@page "/dashboard"
+
+<PageTitle>Dashboard</PageTitle>
+
+<AuthorizeView>
+	<NotAuthorized>
+		@{ NavigationManager.NavigateTo("/login"); }
+	</NotAuthorized>
+</AuthorizeView>
+
+<h3>Dashboard</h3>
+
+
