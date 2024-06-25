@@ -1,6 +1,7 @@
 ﻿using LoanCar.Api.Models;
 using LoanCar.Shared.Requests;
 using LoanCar.Shared.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,7 @@ namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("notifications")]
+    [Authorize]
     public class NotificationController(LoanCarContext db) : ControllerBase
     {
         private readonly LoanCarContext db = db;

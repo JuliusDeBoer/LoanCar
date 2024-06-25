@@ -2,12 +2,14 @@
 using LoanCar.Api.Services;
 using LoanCar.Shared.Requests;
 using LoanCar.Shared.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("cars")]
+    [Authorize]
     public class CarController(CarService carService) : ControllerBase
     {
         private readonly CarService carService = carService;

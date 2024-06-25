@@ -2,20 +2,26 @@ using LoanCar.Api.Models;
 using LoanCar.Api.Services;
 using LoanCar.Shared.Requests;
 using LoanCar.Shared.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-// Prevent this code from going into production with insecure endpoints.
-// Remove if you dare!
-#if DEBUG
-#warning Very insecure endpoints
-#else
-#error Very insecure endpoints
-#endif
+/*
+ *  /-------\
+ *  | R I P |
+ *  |       |
+ *  |       |
+ *  |       |
+ * -----------
+ * 
+ * Here lie the cool as shit compiler directives that where here. If you wish
+ * to see them in their full glory please go to commit 06df92f
+ */
 
 namespace LoanCar.Api.Controllers
 {
     [ApiController]
     [Route("users")]
+    [Authorize]
     public class UserController(UserService userService) : ControllerBase
     {
         private readonly UserService userService = userService;
