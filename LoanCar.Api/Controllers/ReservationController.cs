@@ -30,7 +30,6 @@ namespace LoanCar.Api.Controllers
             return Ok(reservations);
         }
 
-        // FIXME: This exposes the password of the user. Make a DTO for this
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
@@ -70,6 +69,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "admin")]
         public IActionResult Post([FromBody] NewReservationDTO dto)
         {
             var reservation = new Reservation()
@@ -89,6 +89,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Put(Guid id, [FromBody] NewReservationDTO dto)
         {
             var reservation = db.Reservations.FirstOrDefault(r => r.Id == id);
@@ -110,6 +111,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Delete(Guid id)
         {
             var reservation = db.Reservations.Where(r => r.Id == id);

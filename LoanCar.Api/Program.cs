@@ -3,6 +3,7 @@ using LoanCar.Api.Models;
 using LoanCar.Api.Seeders;
 using LoanCar.Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -70,11 +71,15 @@ namespace LoanCar.Api
                     };
                 });
 
-            // builder.Services.AddAuthorizationBuilder()
-            // .SetFallbackPolicy(new AuthorizationPolicyBuilder()
-            // .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            // .RequireAuthenticatedUser()
-            // .Build());
+            builder.Services.AddAuthorizationBuilder()
+                .SetDefaultPolicy(new AuthorizationPolicyBuilder()
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build())
+                .AddPolicy("admin", new AuthorizationPolicyBuilder()
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("admin", ["TRUE", "True", "true"])
+                .Build());
 
             var app = builder.Build();
 

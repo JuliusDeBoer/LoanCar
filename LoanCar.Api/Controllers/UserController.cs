@@ -65,7 +65,7 @@ namespace LoanCar.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] NewUserDTO dto)
         {
-            var password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            var password = BCrypt.Net.BCrypt.EnhancedHashPassword(dto.Password);
 
             var user = new User()
             {

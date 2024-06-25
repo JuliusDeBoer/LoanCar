@@ -46,6 +46,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "admin")]
         public IActionResult Post([FromBody] NewCarDTO dto)
         {
             var car = new Car()
@@ -60,6 +61,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Put(Guid id, [FromBody] NewCarDTO dto)
         {
             try
@@ -80,6 +82,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Delete(Guid id)
         {
             try

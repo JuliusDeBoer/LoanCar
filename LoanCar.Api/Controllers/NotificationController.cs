@@ -44,6 +44,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "admin")]
         public IActionResult Post([FromBody] NewNotificationDTO dto)
         {
             var notification = new Notification()
@@ -59,6 +60,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Put(Guid id, NewNotificationDTO dto)
         {
             var notification = db.Notifications.FirstOrDefault(n => n.Id == id);
@@ -76,6 +78,7 @@ namespace LoanCar.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "admin")]
         public IActionResult Delete(Guid id)
         {
             var notification = db.Notifications.Where(n => n.Id == id);
