@@ -18,6 +18,8 @@ namespace LoanCar.Web
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddScoped<AuthClient>();
+            builder.Services.AddScoped<CarClient>();
+            builder.Services.AddScoped<ReservationClient>();
 
             builder.Services.AddAuthorizationCore();
             builder.Services.AddBlazoredLocalStorage();

@@ -1,0 +1,35 @@
+﻿@page "/cars/{Id}"
+
+<div class="mx-auto container">
+    @if(Target != null)
+    {
+    <div class="flex">
+        <i class="ph ph-car text-5xl" />
+        <h1 class="text-3xl font-bold">@Target.Name</h1>
+	</div>
+	<p class="text-2xl">
+		Kilometers: @(Target.Milage)Km
+	</p>
+
+
+    <EditForm Model="this" OnSubmit="HandleReservation" class="flex flex-col">
+        <h1 class="text-2xl font-bold">Login</h1>
+        <br class="m-2" />
+        <InputText @bind-Value="_beginLocation" type="text" placeholder="Begin" required />
+        <InputText @bind-Value="_start" type="datetime-local" placeholder="Begin" required />
+        <br class="m-2" />
+        <InputText @bind-Value="_endLocation" type="text" placeholder="Eind" required />
+        <br class="m-2" />
+
+        <button type="submit">Reserveer</button>
+    </EditForm>
+    }
+</div>
+
+<PageTitle>Dashboard</PageTitle>
+
+<AuthorizeView>
+	<NotAuthorized>
+		@{ NavigationManager.NavigateTo("/login"); }
+	</NotAuthorized>
+</AuthorizeView>
