@@ -1,6 +1,6 @@
 # Must have
 
-- [ ] Inlog systeem
+- [x] Inlog systeem
 - [ ] Regestratie
   - [ ] Kilometerstand (vastzetten)
   - [ ] Collega
